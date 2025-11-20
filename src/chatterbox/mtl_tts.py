@@ -293,7 +293,7 @@ class ChatterboxMultilingualTTS:
             inputs_embeds=inputs_embeds,
             past_key_values=None,
             use_cache=True,
-            output_attentions=True,
+            output_attentions=False,
             output_hidden_states=True,
             return_dict=True,
         )
@@ -348,7 +348,7 @@ class ChatterboxMultilingualTTS:
             output = self.t3.patched_model(
                 inputs_embeds=next_token_embed,
                 past_key_values=past,
-                output_attentions=True,
+                output_attentions=False,
                 output_hidden_states=True,
                 return_dict=True,
             )
