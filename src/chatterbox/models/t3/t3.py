@@ -269,6 +269,8 @@ class T3(nn.Module):
                 )
                 assert alignment_stream_analyzer.eos_idx == self.hp.stop_speech_token
 
+            attn_implementation = self.cfg._attn_implementation
+            self.cfg._attn_implementation = "eager"
             patched_model = T3HuggingfaceBackend(
                 config=self.cfg,
                 llama=self.tfmr,
@@ -391,4 +393,5 @@ class T3(nn.Module):
 
         # Concatenate all predicted tokens along the sequence dimension.
         predicted_tokens = torch.cat(predicted, dim=1)  # shape: (B, num_tokens)
+        self.cfg._attn_implementation = attn_implementation
         return predicted_tokens
